@@ -8,4 +8,21 @@
     <string name="error_encounter">There was a problem retrieving Rates</string>
     <string name="error">Error</string>
     <string name="convert">Convert</string>
+    <string name="seven_digit" translatable="false">7</string>
+    <string name="eight_digit" translatable="false">8</string>
+    <string name="nine_digit" translatable="false">9</string>
+    <string name="divide_operator" translatable="false">/</string>
+    <string name="four_digit" translatable="false">4</string>
+    <string name="five_digit" translatable="false">5</string>
+    <string name="six_digit" translatable="false">6</string>
+    <string name="multiply_operator" translatable="false">*</string>
+    <string name="one_digit" translatable="false">1</string>
+    <string name="two_digit" translatable="false">2</string>
+    <string name="three_digit" translatable="false">3</string>
+    <string name="minus_operator" translatable="false">-</string>
+    <string name="dot" translatable="false">.</string>
+    <string name="zero_digit" translatable="false">0</string>
+    <string name="clear" translatable="false">CLR</string>
+    <string name="plus_operator" translatable="false">+</string>
+    <string name="equals_operator" translatable="false">=</string>
 </resources>

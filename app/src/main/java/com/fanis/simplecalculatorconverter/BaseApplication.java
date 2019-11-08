@@ -1,6 +1,5 @@
 package com.fanis.simplecalculatorconverter;
 
-
 import com.fanis.simplecalculatorconverter.di.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;

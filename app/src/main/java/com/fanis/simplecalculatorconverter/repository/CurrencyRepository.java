@@ -15,8 +15,6 @@ import com.fanis.simplecalculatorconverter.network.FixerApi;
 import com.fanis.simplecalculatorconverter.ui.MainResource;
 import com.fanis.simplecalculatorconverter.util.Constants;
 
-import java.util.List;
-
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -31,39 +29,34 @@ public class CurrencyRepository {
         database = CurrencyDatabase.getInstance(application);
         currencyDao = database.currencyDao();
         getAllCurrencies = currencyDao.getAllCurrencies();
-        this.currencyApi=currencyApi;
+        this.currencyApi = currencyApi;
     }
 
     public void insert(CurrencyEntity currencyEntity) {
         new InsertCurrencyAsyncTask(currencyDao).execute(currencyEntity);
     }
 
-    public LiveData<MainResource<CurrencyDTO>> fetchFromFixerApiService(){
+    public LiveData<MainResource<CurrencyDTO>> fetchFromFixerApiService() {
         return LiveDataReactiveStreams.fromPublisher(
                 currencyApi.getCurrencies(Constants.ACCESS_KEY)
 
                         //Instead of calling onError(error happens)
-                        .onErrorReturn(new Function<Throwable, CurrencyDTO>() {
-                            @Override
-                            public CurrencyDTO apply(Throwable throwable) throws Exception {
-                                CurrencyDTO errorCurrency = new CurrencyDTO();
-                                errorCurrency.setStatus(false);
-                                return errorCurrency;
-                            }
+                        .onErrorReturn(throwable -> {
+                            CurrencyDTO errorCurrency = new CurrencyDTO();
+                            errorCurrency.setStatus(false);
+                            return errorCurrency;
                         })
 
-                        .map(new Function<CurrencyDTO, MainResource<CurrencyDTO>>() {
-                            @Override
-                            public MainResource<CurrencyDTO> apply(CurrencyDTO currencyDTO) throws Exception {
-                                if (!currencyDTO.getStatus()) {
-                                    return MainResource.error("Error with Fixer API", (CurrencyDTO) null);
-                                }
-
-                                CurrencyEntity currencyEntity= CurrencyMapper.apiToCurrencyMapper(currencyDTO);
-
-                                insert(currencyEntity);
-                                return MainResource.success(currencyDTO);
+                        .map(currencyDTO -> {
+                            if (!currencyDTO.getStatus()) {
+                                return MainResource.error("Error with Fixer API", (CurrencyDTO) null);
                             }
+
+                            CurrencyEntity currencyEntity = CurrencyMapper.apiToCurrencyMapper(currencyDTO);
+
+                            insert(currencyEntity);
+                            return MainResource.success(currencyDTO);
+
                         })
                         .subscribeOn(Schedulers.io())
         );

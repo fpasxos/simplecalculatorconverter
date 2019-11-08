@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="8dp"
+    android:padding="@dimen/standard_padding"
     tools:context=".ui.MainActivity">
 
     <TextView
-        android:id="@+id/tvFromEuro"
+        android:id="@+id/tv_from_euro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/from_euro"
@@ -33,24 +33,19 @@
         app:layout_constraintStart_toStartOf="@+id/bt_get_currencies"
         app:layout_constraintTop_toBottomOf="@+id/bt_get_currencies" />
 
-
     <TextView
         android:id="@+id/tv_input_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
         android:background="#efefef"
         android:ems="10"
         android:gravity="end|center_vertical"
         android:maxLength="12"
         android:textSize="48sp"
-        app:layout_constraintTop_toBottomOf="@+id/tvFromEuro"
-        tools:layout_editor_absoluteX="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_from_euro" />
 
     <TextView
-        android:id="@+id/tvConvertTo"
+        android:id="@+id/tv_convert_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/convert_to"
@@ -60,20 +55,19 @@
 
     <Spinner
         android:id="@+id/sp_available_rates"
+        style="@style/Widget.AppCompat.Light.DropDownItem.Spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        style="@style/Widget.AppCompat.Light.DropDownItem.Spinner"
+        android:layout_marginStart="@dimen/standard_margin"
         app:layout_constraintBottom_toBottomOf="@+id/bt_convert"
-        app:layout_constraintLeft_toRightOf="@+id/tvConvertTo"
+        app:layout_constraintLeft_toRightOf="@+id/tv_convert_to"
         app:layout_constraintTop_toTopOf="@+id/bt_convert" />
-
 
     <Button
         android:id="@+id/bt_convert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="@dimen/standard_margin"
         android:text="@string/convert"
         android:textAllCaps="false"
         app:layout_constraintLeft_toRightOf="@+id/sp_available_rates"
@@ -83,11 +77,6 @@
         android:id="@+id/tv_converted_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:background="#efefef"
         android:ems="10"
         android:gravity="end|center_vertical"
@@ -99,16 +88,14 @@
         android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/double_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
         android:gravity="fill"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_converted_number"
-        app:layout_goneMarginTop="8dp">
+        app:layout_goneMarginTop="@dimen/standard_margin">
 
         <TableRow
             android:layout_width="match_parent"
@@ -117,40 +104,40 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/btnSeven"
+                android:id="@+id/bt_seven"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onDigit"
-                android:text="7" />
+                android:text="@string/seven_digit" />
 
             <Button
-                android:id="@+id/btnEight"
+                android:id="@+id/bt_eight"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onDigit"
-                android:text="8" />
+                android:text="@string/eight_digit" />
 
             <Button
-                android:id="@+id/btnNine"
+                android:id="@+id/bt_nine"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onDigit"
-                android:text="9" />
+                android:text="@string/nine_digit" />
 
             <Button
-                android:id="@+id/btnDivide"
+                android:id="@+id/bt_divide"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onOperator"
-                android:text="/" />
+                android:text="@string/divide_operator" />
         </TableRow>
 
         <TableRow
@@ -160,40 +147,40 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/btnFour"
+                android:id="@+id/bt_four"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onDigit"
-                android:text="4" />
+                android:text="@string/four_digit" />
 
             <Button
-                android:id="@+id/btnFive"
+                android:id="@+id/bt_five"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onDigit"
-                android:text="5" />
+                android:text="@string/five_digit" />
 
             <Button
-                android:id="@+id/btnSix"
+                android:id="@+id/bt_six"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onDigit"
-                android:text="6" />
+                android:text="@string/six_digit" />
 
             <Button
-                android:id="@+id/btnMultiply"
+                android:id="@+id/bt_multiply"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onOperator"
-                android:text="*" />
+                android:text="@string/multiply_operator" />
         </TableRow>
 
         <TableRow
@@ -203,40 +190,40 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/btnOne"
+                android:id="@+id/bt_one"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onDigit"
-                android:text="1" />
+                android:text="@string/one_digit" />
 
             <Button
-                android:id="@+id/btnTwo"
+                android:id="@+id/bt_two"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onDigit"
-                android:text="2" />
+                android:text="@string/two_digit" />
 
             <Button
-                android:id="@+id/btnThree"
+                android:id="@+id/bt_three"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onDigit"
-                android:text="3" />
+                android:text="@string/three_digit" />
 
             <Button
-                android:id="@+id/btnSubtract"
+                android:id="@+id/bt_subtract"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onOperator"
-                android:text="-" />
+                android:text="@string/minus_operator" />
         </TableRow>
 
         <TableRow
@@ -246,40 +233,40 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/btnDecimal"
+                android:id="@+id/bt_decimal"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onDecimalPoint"
-                android:text="." />
+                android:text="@string/dot" />
 
             <Button
-                android:id="@+id/btnZero"
+                android:id="@+id/bt_zero"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onDigit"
-                android:text="0" />
+                android:text="@string/zero_digit" />
 
             <Button
-                android:id="@+id/btnClear"
+                android:id="@+id/bt_clear"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onClear"
-                android:text="CLR" />
+                android:text="@string/clear" />
 
             <Button
-                android:id="@+id/btnAdd"
+                android:id="@+id/bt_add"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onOperator"
-                android:text="+" />
+                android:text="@string/plus_operator" />
         </TableRow>
 
         <TableRow
@@ -288,13 +275,13 @@
             android:layout_weight="1">
 
             <Button
-                android:id="@+id/btnEqual"
+                android:id="@+id/bt_equal"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:onClick="onEqual"
-                android:text="=" />
+                android:text="@string/equals_operator" />
         </TableRow>
     </TableLayout>
 

@@ -1,7 +1,5 @@
 package com.fanis.simplecalculatorconverter.di.main;
 
-import android.app.Application;
-
 import com.fanis.simplecalculatorconverter.network.FixerApi;
 
 import dagger.Module;
@@ -12,12 +10,7 @@ import retrofit2.Retrofit;
 public abstract class MainModule {
 
     @Provides
-    static FixerApi provideFixerApi(Retrofit retrofit){
+    static FixerApi provideFixerApi(Retrofit retrofit) {
         return retrofit.create(FixerApi.class);
     }
-
-//    @Provides
-//    static Application provideApplication(Application application){
-//        return application;
-//    }
 }

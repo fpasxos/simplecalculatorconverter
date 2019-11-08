@@ -47,7 +47,6 @@ public class CurrencyEntity {
         this.rates = rates;
     }
 
-
     public CurrencyEntity(@NotNull String base, String date, List<Rate> rates) {
         this.base = base;
         this.date = date;

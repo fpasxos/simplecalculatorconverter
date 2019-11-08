@@ -41,7 +41,6 @@ public class CurrencyDTO {
     }
 
 
-
     public int getTimestamp() {
         return timestamp;
     }

@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-
 //**We create a custom ViewModel Factory, because ViewModel does not accept arguments in its constructor as parameters and we cannot use Constructor injection**
 public class ViewModelProviderFactory implements ViewModelProvider.Factory {
 
@@ -50,4 +49,3 @@ public class ViewModelProviderFactory implements ViewModelProvider.Factory {
         }
     }
 }
-

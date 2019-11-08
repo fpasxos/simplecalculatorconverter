@@ -41,7 +41,7 @@ public class MainActivity extends DaggerAppCompatActivity {
     private Spinner spAvailableRates;
 
     private boolean lastNumeric = false;
-    private boolean stateError = false;
+    private boolean hasError = false;
     private boolean lastDot = false;
 
     private TextView tvInputNumber;
@@ -63,12 +63,7 @@ public class MainActivity extends DaggerAppCompatActivity {
         tvUpdatedAt = findViewById(R.id.tv_updated_at);
         spAvailableRates = findViewById(R.id.sp_available_rates);
 
-        btGetCurrencies.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.getAllCurrencies();
-            }
-        });
+        btGetCurrencies.setOnClickListener(v -> viewModel.getAllCurrencies());
 
         viewModel = ViewModelProviders.of(this, providerFactory).get(MainViewModel.class);
 
@@ -80,8 +75,6 @@ public class MainActivity extends DaggerAppCompatActivity {
             public void onChanged(CurrencyEntity currencyEntity) {
                 if (currencyEntity != null) {
 
-                    final int[] check = {0};
-
                     List<String> rateNamesList = currencyEntity.getRates().stream()
                             .map(Rate::getCurrency)
                             .collect(Collectors.toList());
@@ -90,38 +83,29 @@ public class MainActivity extends DaggerAppCompatActivity {
                             .map(Rate::getValue)
                             .collect(Collectors.toList());
 
-//                    Rate currentRate = currencyEntity.getRates().stream()
-//                            .filter(currency -> "USD".equals(currency.getCurrency()))
-//                            .findAny()
-//                            .orElse(null);
-
                     spAvailableRates.setAdapter(new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, rateNamesList));
 
-                    btConvertValue.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (!tvInputNumber.getText().toString().equals("") && !stateError && lastNumeric &&
-                                    tvInputNumber.getText().toString().matches("^[^\\+\\-\\/\\*]+$")
-                            ) {
-                                tvConvertedNumber.setText(Double.parseDouble(tvInputNumber.getText().toString()) * rateValuesList.get(spAvailableRates.getSelectedItemPosition()) + "");
-                            }
+                    btConvertValue.setOnClickListener(v -> {
+                        if (!tvInputNumber.getText().toString().equals("") && !hasError && lastNumeric &&
+                                tvInputNumber.getText().toString().matches("^[^+\\-/*]+$")
+                        ) {
+                            tvConvertedNumber.setText(Double.parseDouble(tvInputNumber.getText().toString()) * rateValuesList.get(spAvailableRates.getSelectedItemPosition()) + "");
                         }
                     });
 
-                    if (!currencyEntity.getDate().equals("")) {
-                        tvUpdatedAt.setText(getString(R.string.update_at, currencyEntity.getDate()));
-                    } else {
-                        tvUpdatedAt.setText(getString(R.string.update_at_never));
-                    }
+                    tvUpdatedAt.setText(getString(R.string.update_at, currencyEntity.getDate()));
+
+                } else {
+                    tvUpdatedAt.setText(getString(R.string.update_at_never));
                 }
             }
         });
     }
 
     public void onDigit(View v) {
-        if (stateError) {
+        if (hasError) {
             tvInputNumber.setText(((Button) v).getText().toString());
-            stateError = false;
+            hasError = false;
         } else {
             tvInputNumber.append(((Button) v).getText().toString());
         }
@@ -129,7 +113,7 @@ public class MainActivity extends DaggerAppCompatActivity {
     }
 
     public void onDecimalPoint(View v) {
-        if (lastNumeric && !stateError && !lastDot) {
+        if (lastNumeric && !hasError && !lastDot) {
             tvInputNumber.append(".");
             lastNumeric = false;
             lastDot = true;
@@ -137,7 +121,7 @@ public class MainActivity extends DaggerAppCompatActivity {
     }
 
     public void onOperator(View v) {
-        if (lastNumeric && !stateError) {
+        if (lastNumeric && !hasError) {
             tvInputNumber.append(((Button) v).getText().toString());
             lastNumeric = false;
             lastDot = false;
@@ -148,12 +132,12 @@ public class MainActivity extends DaggerAppCompatActivity {
         tvInputNumber.setText("");
         tvConvertedNumber.setText("");
         lastNumeric = false;
-        stateError = false;
+        hasError = false;
         lastDot = false;
     }
 
     public void onEqual(View v) {
-        if (lastNumeric && !stateError) {
+        if (lastNumeric && !hasError) {
             String text = tvInputNumber.getText().toString();
             Expression expression = (new ExpressionBuilder(text)).build();
 
@@ -163,7 +147,7 @@ public class MainActivity extends DaggerAppCompatActivity {
                 lastDot = true;
             } catch (ArithmeticException exception) {
                 tvInputNumber.setText(R.string.error);
-                stateError = true;
+                hasError = true;
                 lastNumeric = false;
             }
         }
