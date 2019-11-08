@@ -2,9 +2,7 @@ package com.fanis.simplecalculatorconverter.ui;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -47,6 +45,8 @@ public class MainActivity extends DaggerAppCompatActivity {
     private boolean lastDot = false;
 
     private TextView tvInputNumber;
+    private TextView tvConvertedNumber;
+    private Button btConvertValue;
 
     @Inject
     ViewModelProviderFactory providerFactory;
@@ -58,6 +58,8 @@ public class MainActivity extends DaggerAppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         btGetCurrencies = findViewById(R.id.bt_get_currencies);
         tvInputNumber = findViewById(R.id.tv_input_number);
+        tvConvertedNumber = findViewById(R.id.tv_converted_number);
+        btConvertValue = findViewById(R.id.bt_convert);
         tvUpdatedAt = findViewById(R.id.tv_updated_at);
         spAvailableRates = findViewById(R.id.sp_available_rates);
 
@@ -76,7 +78,6 @@ public class MainActivity extends DaggerAppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(CurrencyEntity currencyEntity) {
-                Log.d(TAG, "onChanged: ");
                 if (currencyEntity != null) {
 
                     final int[] check = {0};
@@ -89,33 +90,32 @@ public class MainActivity extends DaggerAppCompatActivity {
                             .map(Rate::getValue)
                             .collect(Collectors.toList());
 
-                    Rate currentRate = currencyEntity.getRates().stream()
-                            .filter(currency -> "USD".equals(currency.getCurrency()))
-                            .findAny()
-                            .orElse(null);
+//                    Rate currentRate = currencyEntity.getRates().stream()
+//                            .filter(currency -> "USD".equals(currency.getCurrency()))
+//                            .findAny()
+//                            .orElse(null);
 
                     spAvailableRates.setAdapter(new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, rateNamesList));
 
-                    spAvailableRates.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    btConvertValue.setOnClickListener(new View.OnClickListener() {
                         @Override
-
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            if (++check[0] > 1) {
-                                tvInputNumber.setText(Double.parseDouble(tvInputNumber.getText().toString()) * rateValuesList.get(position) + "");
+                        public void onClick(View v) {
+                            if (!tvInputNumber.getText().toString().equals("") && !stateError && lastNumeric &&
+                                    tvInputNumber.getText().toString().matches("^[^\\+\\-\\/\\*]+$")
+                            ) {
+                                tvConvertedNumber.setText(Double.parseDouble(tvInputNumber.getText().toString()) * rateValuesList.get(spAvailableRates.getSelectedItemPosition()) + "");
                             }
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
                         }
                     });
 
-                    tvUpdatedAt.setText("Updated at: " + currencyEntity.getDate());
+                    if (!currencyEntity.getDate().equals("")) {
+                        tvUpdatedAt.setText(getString(R.string.update_at, currencyEntity.getDate()));
+                    } else {
+                        tvUpdatedAt.setText(getString(R.string.update_at_never));
+                    }
                 }
             }
         });
-
     }
 
     public void onDigit(View v) {
@@ -146,6 +146,7 @@ public class MainActivity extends DaggerAppCompatActivity {
 
     public void onClear(View v) {
         tvInputNumber.setText("");
+        tvConvertedNumber.setText("");
         lastNumeric = false;
         stateError = false;
         lastDot = false;
@@ -161,7 +162,7 @@ public class MainActivity extends DaggerAppCompatActivity {
                 tvInputNumber.setText(result + "");
                 lastDot = true;
             } catch (ArithmeticException exception) {
-                tvInputNumber.setText("ERROR");
+                tvInputNumber.setText(R.string.error);
                 stateError = true;
                 lastNumeric = false;
             }
@@ -181,14 +182,12 @@ public class MainActivity extends DaggerAppCompatActivity {
                         }
                         case SUCCESS: {
                             showProgressBar(false);
-                            Log.d(TAG, "SUCCESS: got currencies!" + currencyMainResource.data.getBase());
-//                            onLoginSuccess();
                             break;
                         }
                         case ERROR: {
                             showProgressBar(false);
                             Toast.makeText(MainActivity.this, currencyMainResource.message
-                                    + "\n There was a probleeem!", Toast.LENGTH_SHORT).show();
+                                    + getString(R.string.error_encounter) + "", Toast.LENGTH_SHORT).show();
                             break;
                         }
                     }

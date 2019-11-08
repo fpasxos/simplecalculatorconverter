@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="from_euro">Από Ευρώ</string>
+    <string name="update_at">Τελευταία ενημέρωση %1s:</string>
+    <string name="update_at_never">Τελευταία ενημέρωση: Ποτέ</string>
+    <string name="convert_to">Μετατροπή σε:</string>
+    <string name="get_latest_currencies">Ενημέρωση χρεώσεων</string>
+    <string name="error_encounter">Αντιμετωπίσαμε ένα πρόβλημα με την ενημέρωση των χρεώσεων</string>
+    <string name="error">Error</string>
+    <string name="convert">Μετατροπή</string>
+</resources>
