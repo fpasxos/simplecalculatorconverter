@@ -1,5 +1,7 @@
 package com.fanis.simplecalculatorconverter.ui;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -63,9 +65,17 @@ public class MainActivity extends DaggerAppCompatActivity {
         tvUpdatedAt = findViewById(R.id.tv_updated_at);
         spAvailableRates = findViewById(R.id.sp_available_rates);
 
-        btGetCurrencies.setOnClickListener(v -> viewModel.getAllCurrencies());
+        btGetCurrencies.setOnClickListener(v -> {
+                    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        viewModel = ViewModelProviders.of(this, providerFactory).get(MainViewModel.class);
+                    if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
+                        viewModel.getAllCurrencies();
+                    }else{
+                        Toast.makeText(this, R.string.no_network, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                viewModel = ViewModelProviders.of(this, providerFactory).get(MainViewModel.class);
 
         subscribeObservers();
 

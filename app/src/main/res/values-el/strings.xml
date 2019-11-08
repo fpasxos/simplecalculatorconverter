@@ -8,4 +8,5 @@
     <string name="error_encounter">Αντιμετωπίσαμε ένα πρόβλημα με την ενημέρωση των χρεώσεων</string>
     <string name="error">Error</string>
     <string name="convert">Μετατροπή</string>
+    <string name="no_network">Δεν υπάρχει σύνδεση στο δίκτυο</string>
 </resources>

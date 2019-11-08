@@ -25,4 +25,5 @@
     <string name="clear" translatable="false">CLR</string>
     <string name="plus_operator" translatable="false">+</string>
     <string name="equals_operator" translatable="false">=</string>
+    <string name="no_network">There is no Network Connectivity</string>
 </resources>
