@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">Simple Calculator Converter</string>
     <string name="from_euro">From Euro</string>
-    <string name="update_at">Updated at: %1s</string>
-    <string name="update_at_never">Updated at: Never</string>
+    <string name="update_at">Updated at:\n%1s</string>
+    <string name="update_at_never">Updated at:\nNever</string>
     <string name="convert_to">Convert to:</string>
     <string name="get_latest_currencies">Retrieve Latest Currencies</string>
     <string name="error_encounter">There was a problem retrieving Rates</string>

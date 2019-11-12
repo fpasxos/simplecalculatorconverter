@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/from_euro"
         app:layout_constraintStart_toStartOf="@+id/tv_input_number"
-        app:layout_constraintTop_toBottomOf="@+id/bt_get_currencies" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_updated_at" />
 
     <Button
         android:id="@+id/bt_get_currencies"
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="@+id/bt_get_currencies"
+        app:layout_constraintStart_toStartOf="@+id/bt_get_currencies"
         app:layout_constraintTop_toBottomOf="@+id/bt_get_currencies" />
 
     <TextView
@@ -41,7 +41,7 @@
         android:gravity="end|center_vertical"
         android:maxLength="12"
         android:textSize="48sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_from_euro" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_updated_at" />
 
     <TextView
         android:id="@+id/tv_convert_to"
@@ -67,6 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_end_big"
+        android:layout_marginStart="@dimen/huge_margin"
         android:text="@string/convert"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="@+id/tv_input_number"
